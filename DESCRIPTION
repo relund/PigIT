@@ -1,0 +1,17 @@
+Package: PigIT
+Type: Package
+Title: Various code related to the PigIT project
+Version: 1.0
+Date: 2014-01-08
+Author: Lars Relund <lars@relund.dk>
+Maintainer: Lars Relund <lars@relund.dk>
+Description: This package include tools used during the PigIT project
+    \url{www.pigit.net}.
+License: GPL (>= 2)
+Depends:
+    R (>= 3.0.0),
+    MDP
+Imports:
+    Rcpp (>= 0.11.1),
+    RcppArmadillo (>= 0.4.100.2.1)
+LinkingTo: Rcpp, RcppArmadillo
