@@ -346,7 +346,14 @@ private:
       return s.str();
    }
    
-      /** Convert integers into a string. */
+   /** Convert integers into a string. */
+   string getLabel(const int & a, const int & b, const int & c, const int & d, const int & e, const int & f) {
+      std::ostringstream s;
+      s << "(" << a << "," << b << "," << c << "," << d << "," << e << "," << f << ")";
+      return s.str();
+   }
+
+   /** Convert integers into a string. */
    string getLabel(const int & a, const int & b, const int & c, const int & d, const int & e, const int & f, const int & g) {
       std::ostringstream s;
       s << "(" << a << "," << b << "," << c << "," << d << "," << e << "," << f << "," << g << ")";

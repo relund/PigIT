@@ -36,7 +36,7 @@ setParameters<-function(tMax=12,
                         pigs=15,
                         rations=4,
                         iniFeedMix=2, 
-                        rationCost=c(1.8,1.9,2,2.1), #c(0.5,0.5,0.5,0.5),#c(1.2,1.25,1.3,1.35), #c(1.65,1.7,1.75,1.8), #(1.2,1.25,1.3,1.35), #c(1.2,1.2,1.2,1.2), #c(1.85,1.9,1.95,2), #c(1.2,1.2,1.2,1.2), #c(1.2,1.7,2.5,2.8)
+                        rationCost=c(1.8,1.88,1.96), #c(0.5,0.5,0.5,0.5),#c(1.2,1.25,1.3,1.35), #c(1.65,1.7,1.75,1.8), #(1.2,1.25,1.3,1.35), #c(1.2,1.2,1.2,1.2), #c(1.85,1.9,1.95,2), #c(1.2,1.2,1.2,1.2), #c(1.2,1.7,2.5,2.8)
                         minPhaseT=c(1,4,7,10),
                         thresholds=c(0,seq(94,116,by=3),200),     # MUST be incresing!!
                         convRate=0.84,
@@ -50,8 +50,8 @@ setParameters<-function(tMax=12,
                         disWeight=c(5,2), 
                         disSD=c(2,1),     
                         disGrowth=c(5,2), 
-                        centerWeight=seq(avgInsWeight,avgInsWeight+(tMax-1)*avgGRate,by=avgGRate), 
-                        centerSD=seq(4,by=0.5,length=tMax),
+                        centerWeight=seq(26.4,112, by=7),#seq(avgInsWeight,avgInsWeight+(tMax-1)*avgGRate,by=avgGRate), 
+                        centerSD=seq(4,11,by=0.5),#seq(4,by=0.5,length=tMax),
                         centerGrowth=priorGrowth, #c(5.2, 5.7, 6.2, 6.7, 6.8),
                         iniDist=c(26.49,4.26),
                         cullActions = TRUE,
@@ -94,14 +94,23 @@ setParameters<-function(tMax=12,
    sDIntervals<-vector("list", tMax)   # matrices of the discritized intervals at the stages of the hmdp (standard deviation)
    gIntervals<-vector("list", rations)
    for(t in 1:tMax){
-      pointsWeight<-PointsW(t,disWeight[1],disWeight[2],centerSD,centerWeight)
-      pointsSd<-PointsV(t,disSD[1],disSD[2],centerSD)   
-      wIntervals[[t]]<-as.matrix(obj$discretize1DVec(pointsWeight, inf=1000, asDF=F), ncol=3) 
-      sDIntervals[[t]]<-as.matrix(obj$discretize1DVec(pointsSd, inf=100, mInf=0.01, asDF=F), ncol=3) 
+#      if(t<9){
+         pointsWeight<-PointsW(t,disWeight[1],disWeight[2],centerSD,centerWeight)
+         pointsSd<-PointsV(t,disSD[1],disSD[2],centerSD)   
+         wIntervals[[t]]<-as.matrix(obj$discretize1DVec(pointsWeight, inf=1000, asDF=F), ncol=3) 
+         sDIntervals[[t]]<-as.matrix(obj$discretize1DVec(pointsSd, inf=100, mInf=0.01, asDF=F), ncol=3) 
+#      }
+#      if(t>8){
+#         pointsWeight<-seq(70, 120, by=5)
+#         pointsSd<-seq(5.5,12, by=1)   
+#         wIntervals[[t]]<-as.matrix(obj$discretize1DVec(pointsWeight, inf=1000, asDF=F), ncol=3) 
+#         sDIntervals[[t]]<-as.matrix(obj$discretize1DVec(pointsSd, inf=100, mInf=0.01, asDF=F), ncol=3)          
+#      }
       #gIntervals[[t]]<-as.matrix(obj$discretize1DVec(centerPointsGrowth, inf=1000, asDF=F), ncol=3)
    }
    for(ration in 1:rations){
-      pointsGrowth<-PointsG(ration,disGrowth[1],disGrowth[2],centerGrowth)
+      #pointsGrowth<-PointsG(ration,disGrowth[1],disGrowth[2],centerGrowth)
+      pointsGrowth<-c(4.4,5.8,6.3,6.8,8.2)
       gIntervals[[ration]]<-as.matrix(obj$discretize1DVec(pointsGrowth, inf=1000, asDF=F), ncol=3)
    }
    

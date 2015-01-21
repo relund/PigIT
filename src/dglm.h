@@ -48,12 +48,12 @@ public:  // methods
          G = pow( (double) (t+1)/(t),2);
       }       
       double oShape = (double) (numSample-1)/(2);   //shape parameter of observation distribution
-      double iShape = (double) (numSample-3)/(numSample-5); //("shape parameter of prior at t=1"): c_1 in the paper     
+      double iShape = (double) (numSample-1)/(2);//(double) (numSample-3)/(numSample-5); //("shape parameter of prior at t=1"): c_1 in the paper     
       
       a = (double) (G * var * ( iShape + oShape*t ) ) / ( iShape + oShape*(t+1) ) ; // location
       s = a; // scale
       alpha = oShape; // shape 1
-      gamma = iShape + oShape*t +1; // shape 2
+      gamma = iShape + oShape*t + 1; // shape 2
       beta =1 ;  // Weibul parameter
       xUpper = (double) (1)/( 1 + pow ( (double)(upper-a)/(s),-beta ) );
       xLower = (double) (1)/( 1 + pow ( (double)(lower-a)/(s),-beta ) );

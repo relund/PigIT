@@ -10,70 +10,54 @@ using namespace Rcpp;
 SEXP pNorm1D(NumericVector x, double mean, double sd);
 RcppExport SEXP PigIT_pNorm1D(SEXP xSEXP, SEXP meanSEXP, SEXP sdSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP );
-        Rcpp::traits::input_parameter< double >::type mean(meanSEXP );
-        Rcpp::traits::input_parameter< double >::type sd(sdSEXP );
-        SEXP __result = pNorm1D(x, mean, sd);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type mean(meanSEXP);
+    Rcpp::traits::input_parameter< double >::type sd(sdSEXP);
+    __result = Rcpp::wrap(pNorm1D(x, mean, sd));
+    return __result;
 END_RCPP
 }
 // pNorm2D_arma
 double pNorm2D_arma(arma::vec lower, arma::vec upper, arma::vec mean, arma::mat sigma);
 RcppExport SEXP PigIT_pNorm2D_arma(SEXP lowerSEXP, SEXP upperSEXP, SEXP meanSEXP, SEXP sigmaSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< arma::vec >::type lower(lowerSEXP );
-        Rcpp::traits::input_parameter< arma::vec >::type upper(upperSEXP );
-        Rcpp::traits::input_parameter< arma::vec >::type mean(meanSEXP );
-        Rcpp::traits::input_parameter< arma::mat >::type sigma(sigmaSEXP );
-        double __result = pNorm2D_arma(lower, upper, mean, sigma);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< arma::vec >::type lower(lowerSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type upper(upperSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type mean(meanSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type sigma(sigmaSEXP);
+    __result = Rcpp::wrap(pNorm2D_arma(lower, upper, mean, sigma));
+    return __result;
 END_RCPP
 }
 // pNorm2D
 double pNorm2D(NumericVector lower, NumericVector upper, NumericVector mean, NumericMatrix sigma);
 RcppExport SEXP PigIT_pNorm2D(SEXP lowerSEXP, SEXP upperSEXP, SEXP meanSEXP, SEXP sigmaSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type lower(lowerSEXP );
-        Rcpp::traits::input_parameter< NumericVector >::type upper(upperSEXP );
-        Rcpp::traits::input_parameter< NumericVector >::type mean(meanSEXP );
-        Rcpp::traits::input_parameter< NumericMatrix >::type sigma(sigmaSEXP );
-        double __result = pNorm2D(lower, upper, mean, sigma);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericVector >::type lower(lowerSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type upper(upperSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type mean(meanSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type sigma(sigmaSEXP);
+    __result = Rcpp::wrap(pNorm2D(lower, upper, mean, sigma));
+    return __result;
 END_RCPP
 }
 // BuildHMDP
 SEXP BuildHMDP(const CharacterVector filePrefix, const List param, const List dlms, const List dglmParam);
 RcppExport SEXP PigIT_BuildHMDP(SEXP filePrefixSEXP, SEXP paramSEXP, SEXP dlmsSEXP, SEXP dglmParamSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< const CharacterVector >::type filePrefix(filePrefixSEXP );
-        Rcpp::traits::input_parameter< const List >::type param(paramSEXP );
-        Rcpp::traits::input_parameter< const List >::type dlms(dlmsSEXP );
-        Rcpp::traits::input_parameter< const List >::type dglmParam(dglmParamSEXP );
-        SEXP __result = BuildHMDP(filePrefix, param, dlms, dglmParam);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< const CharacterVector >::type filePrefix(filePrefixSEXP);
+    Rcpp::traits::input_parameter< const List >::type param(paramSEXP);
+    Rcpp::traits::input_parameter< const List >::type dlms(dlmsSEXP);
+    Rcpp::traits::input_parameter< const List >::type dglmParam(dglmParamSEXP);
+    __result = Rcpp::wrap(BuildHMDP(filePrefix, param, dlms, dglmParam));
+    return __result;
 END_RCPP
 }

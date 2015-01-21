@@ -5,16 +5,17 @@ require(RcppArmadillo)
 library(data.table)
 set.seed(234567)
 
-param<-setParameters(pigs=4,  # program crash if rations = 1!!
+param<-setParameters(pigs=15,  # program crash if rations = 1!!
                      rations=3,
-                     phases=3,
+                     phases=4,
                      tMax=12,
-                     iniFeedMix=2,
+                     tStartMarketing=9,
+                     iniFeedMix=1,
                      minPhaseT=c(1,4,7,10),
-                     disWeight=c(5,3),
+                     disWeight=c(5,4),
                      disSD=c(3,0.8),
-                     disGrowth=c(2,0.1),
-                     priorGrowth=c(5.2,5.7,6.2,6.7),
+                     disGrowth=c(2,0.3),
+                     priorGrowth=c(5.8,6.3,6.8),#c(5.2,5.7,6.2,6.7),
                      cullActions = T
 )
 # create DLMs
@@ -39,8 +40,8 @@ wLbl<-"Reward"
 durLbl<-"Time"
 mdp<-loadMDP(prefix, check = FALSE)
 g<-policyIteAve(mdp,wLbl,durLbl)      # Finds the optimal policy using the average reward per week (g) criterion 
-
-
+policy<-getPolicy(mdp)#, labels=TRUE)   # optimal policy for each sId
+#binInfoStates(prefix, labels = F, stateStr = F)
 
 # After changes in setParam function (ok)
 # Run policy iteration under average reward criterion using 
@@ -58,9 +59,6 @@ g<-policyIteAve(mdp,wLbl,durLbl)      # Finds the optimal policy using the avera
 #    1 (1.39684) 2 (1.39684) finished.
 
 
-
-
-policy<-getPolicy(mdp, labels=TRUE)   # optimal policy for each sId
 sIdx<-stateIdxDf(prefix)              # information about the states
 policy<-merge(sIdx,policy)            # merge the two data frames
 policyW<-getPolicyW(mdp, wLbl)        # the optimal rewards of the policy

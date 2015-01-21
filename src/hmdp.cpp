@@ -179,7 +179,7 @@ void HMDP::BuildL1Phase() {
                      if( (RS<=tStartMarketing) & (n!=pigs) ) continue;
                      for (iSW=0; iSW<sizeSW; iSW++) {   // row number in sW (C style)
                         for (iSSd=0; iSSd<sizeSSd; iSSd++) {   // row number in sSd
-                           label = getLabel(iR,RS,n,iSW,iSSd);
+                           label = getLabel(iR,RS,n,iSW,iSSd,phase);
                            w.State(label);
                            for (iA = 0; iA<rations; iA++){
                               if ( (phase==0) & (iA!=iR) )  continue;   // only same ration for phase=0
