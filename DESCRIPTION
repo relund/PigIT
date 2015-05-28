@@ -1,13 +1,17 @@
-Package: PigIT
+Package: hmdpFeedPigIT
 Type: Package
-Title: Various code related to the PigIT project
+Title: A hierarchical Markov decision process modeling feeding and marketing decisions of growing pigs
 Version: 1.0
 Date: 2014-01-08
-Author: Lars Relund <lars@relund.dk>
-Maintainer: Lars Relund <lars@relund.dk>
-Description: This package include tools used during the PigIT project
-    \url{www.pigit.net}.
-License: GPL (>= 2)
+Authors@R: c( 
+  person("Lars", "Relund", email = "lars@relund.dk", role = c("aut") ), 
+  person("Reza", "Pourmoayed", email = "rpourmoayed@econ.au.dk", role = c("aut", "cre") ) 
+  )
+URL: https://github.com/relund/hmdp-feed-pigit/
+BugReports: https://github.com/relund/hmdp-feed-pigit/issues
+Description: This package include code and data to build and solve the model. 
+    The model is developed under the PigIT project \url{www.pigit.net}.
+License: MIT + file LICENSE
 Depends:
     R (>= 3.0.0),
     MDP2
