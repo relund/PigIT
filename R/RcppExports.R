@@ -39,7 +39,7 @@
 #' benchmark(testpnorm(), testpNorm1D(), order="relative", replications=100000)[,1:4]
 #' @export
 pNorm1D <- function(x, mean, sd) {
-    .Call('PigIT_pNorm1D', PACKAGE = 'PigIT', x, mean, sd)
+    .Call('hmdpFeedPigIT_pNorm1D', PACKAGE = 'hmdpFeedPigIT', x, mean, sd)
 }
 
 #' Bivariate cumulative normal (distribution function) using Armadillo
@@ -107,7 +107,7 @@ pNorm1D <- function(x, mean, sd) {
 #' benchmark(testPmvnorm(), testpNorm2D(), testpNorm2D_arma, order="relative", replications=10000)[,1:4]
 #' @export
 pNorm2D_arma <- function(lower, upper, mean, sigma) {
-    .Call('PigIT_pNorm2D_arma', PACKAGE = 'PigIT', lower, upper, mean, sigma)
+    .Call('hmdpFeedPigIT_pNorm2D_arma', PACKAGE = 'hmdpFeedPigIT', lower, upper, mean, sigma)
 }
 
 #' Bivariate cumulative normal (distribution function)
@@ -175,7 +175,7 @@ pNorm2D_arma <- function(lower, upper, mean, sigma) {
 #' benchmark(testPmvnorm(), testpNorm2D(), testpNorm2D_arma, order="relative", replications=10000)[,1:4]
 #' @export
 pNorm2D <- function(lower, upper, mean, sigma) {
-    .Call('PigIT_pNorm2D', PACKAGE = 'PigIT', lower, upper, mean, sigma)
+    .Call('hmdpFeedPigIT_pNorm2D', PACKAGE = 'hmdpFeedPigIT', lower, upper, mean, sigma)
 }
 
 #' Build the HMDP (3 levels with shared linking) using the C++ binary writer. 
@@ -192,6 +192,6 @@ pNorm2D <- function(lower, upper, mean, sigma) {
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @export
 BuildHMDP <- function(filePrefix, param, dlms, dglmParam) {
-    .Call('PigIT_BuildHMDP', PACKAGE = 'PigIT', filePrefix, param, dlms, dglmParam)
+    .Call('hmdpFeedPigIT_BuildHMDP', PACKAGE = 'hmdpFeedPigIT', filePrefix, param, dlms, dglmParam)
 }
 

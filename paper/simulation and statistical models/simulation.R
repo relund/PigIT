@@ -1,6 +1,6 @@
 
 # R script file
-# Author: Lars Relund
+# Author: Lars Relund, Reza Pourmoayed
 # Description: Generate some random data to be used for DLM testing. Source the whole file to
 # generate a data set for a pen (stored in a data.table dat).
 
@@ -470,7 +470,7 @@ estimatePosterior<-function(dat, m0, C0, var0, startT){
       D[2,1,t]<-round(dat$aveFIAll[t]  ,3)
    }
    #Use the filter source to filter the raw data 
-   source("DLM.R")
+   source("GSSM.R")
    mod$m0<-m0
    mod$C0<-C0
    mod$t<-(param$tMax-1)-startT+1
@@ -483,7 +483,7 @@ estimatePosterior<-function(dat, m0, C0, var0, startT){
    
    #DGLM model
    # store the observations related to the DGLM in the vector ob (variance components)
-   source("DGLM.R")
+   source("nGSSM.R")
    ob<-round(dat$sdOLWAll^2 , 3)
    mod1$m0=var0
    mod1$t<-(param$tMax-1)-startT+1

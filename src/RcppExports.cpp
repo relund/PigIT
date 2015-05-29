@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // pNorm1D
 SEXP pNorm1D(NumericVector x, double mean, double sd);
-RcppExport SEXP PigIT_pNorm1D(SEXP xSEXP, SEXP meanSEXP, SEXP sdSEXP) {
+RcppExport SEXP hmdpFeedPigIT_pNorm1D(SEXP xSEXP, SEXP meanSEXP, SEXP sdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -21,7 +21,7 @@ END_RCPP
 }
 // pNorm2D_arma
 double pNorm2D_arma(arma::vec lower, arma::vec upper, arma::vec mean, arma::mat sigma);
-RcppExport SEXP PigIT_pNorm2D_arma(SEXP lowerSEXP, SEXP upperSEXP, SEXP meanSEXP, SEXP sigmaSEXP) {
+RcppExport SEXP hmdpFeedPigIT_pNorm2D_arma(SEXP lowerSEXP, SEXP upperSEXP, SEXP meanSEXP, SEXP sigmaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -35,7 +35,7 @@ END_RCPP
 }
 // pNorm2D
 double pNorm2D(NumericVector lower, NumericVector upper, NumericVector mean, NumericMatrix sigma);
-RcppExport SEXP PigIT_pNorm2D(SEXP lowerSEXP, SEXP upperSEXP, SEXP meanSEXP, SEXP sigmaSEXP) {
+RcppExport SEXP hmdpFeedPigIT_pNorm2D(SEXP lowerSEXP, SEXP upperSEXP, SEXP meanSEXP, SEXP sigmaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -49,7 +49,7 @@ END_RCPP
 }
 // BuildHMDP
 SEXP BuildHMDP(const CharacterVector filePrefix, const List param, const List dlms, const List dglmParam);
-RcppExport SEXP PigIT_BuildHMDP(SEXP filePrefixSEXP, SEXP paramSEXP, SEXP dlmsSEXP, SEXP dglmParamSEXP) {
+RcppExport SEXP hmdpFeedPigIT_BuildHMDP(SEXP filePrefixSEXP, SEXP paramSEXP, SEXP dlmsSEXP, SEXP dglmParamSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;

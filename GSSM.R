@@ -1,12 +1,24 @@
 
-#global parameters
+#' Set the parameters of the GSSM. 
+#' 
+#' @param t Maximumu life time of the pen
+#' @param FF design matrix of system equation.
+#' @param GG design matrix of observation equation.
+#' @param V Observation variance of the nGSSM
+#' @param W System variance of the nGSSM
+#' @param m0 Initial mean of posterior distribution at the insertion time (t=0)
+#' @param C0 Initial variance of posterior distribution at the insertion time (t=0)
+#' 
+#' @return A list containing the parameters of the GSSM. 
+#' 
+#'@author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
 setModel<-function(t=12,FF,GG,V,W,m0,C0,D){
    model<-list(t=t)
    model$FF<-matrix(data=c(1,0,0.044,1.549),ncol=2)
    model$GG<-matrix(data=c(1,0,1,1),nrow=2)
    model$V<-matrix(c(0.066,0.027,0.027,0.012),ncol=2)
-   model$W<-matrix(data=c(0,0,0,0.12),ncol=2) # matrix(c(2.1,-0.124,-0.124,0.112),ncol=2)
-   model$m0<-matrix(data=c(26.49,6),nrow=2)
+   model$W<-matrix(c(2.1,-0.124,-0.124,0.112),ncol=2) #matrix(data=c(0,0,0,0.12),ncol=2) # 
+   model$m0<-matrix(data=c(26.49,5.8),nrow=2)  
    model$C0<-matrix(data=c(4.26,0.32,0.32,0.53),ncol=2)
    return(model)
 }
@@ -14,7 +26,15 @@ setModel<-function(t=12,FF,GG,V,W,m0,C0,D){
 mod<-setModel()
 
 
-#DLM filtering 
+#' GSSM filtering to estimate the weight and growth during the growing period. 
+#' 
+#' @param mod set of parameters needed in the GSSM model.
+#' @param D Set of the weight and feed intake data during the growing period.
+#' @param W system variance of the GSSM.
+#' 
+#' @return Updated information of posterior. 
+#' 
+#'@author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
 DLMfilter<-function(mod,D,W){
    
    k1<-c()

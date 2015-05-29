@@ -1,0 +1,6 @@
+
+In this folder, you can find the recquired source files to run the HMDP for the three pens with different genetics properties.  
+
+- In the subfolder "Run-model" there is a R file to run the HMDP. 
+- In the subfolder "Simulated data", there are CSV files related to the data of three simulated pens with the optimal actions and also a R file containing the optimal policy of the HMDP.   
+- In the subfolder "Simulation and statistical models", there are R files to generate simulated data and estimate the parameters of GSSM and nGSSM.
