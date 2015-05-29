@@ -1,7 +1,7 @@
 
-# In this file we find the parameters of the GSSM and nGSSM.  
+# In this file we find the parameters of GSSM and nGSSM.  
 # Prameters are observation variance of GSSM (V), system variance of GSSM(W), initial
-# posterior parameters of GSSM (m0 and c0), and the initial sample variance of weights in nGSSM (s0).
+# posterior parameters of GSSM (m0 and c0), and initial sample variance of weights in nGSSM (s0).
 # To estimate m0, c0 and s0 we use the real data at the insertion time of piglets into the pen.
 # To estimate V and W we use the the simulated data generated from the file "simulation.R".
 
@@ -83,7 +83,7 @@ for(i in 1:6){
   GL[[i]]<-GR(as.vector(DL[[i]][,1]))   
 }
 
-# Estimate m0 and C0 of the GSSM using the lists DL and GL :
+# Estimate m0 and C0 of GSSM using the lists DL and GL :
 m0_1 = mean(c(DL[[1]][1,1], DL[[2]][1,1],DL[[3]][1,1],DL[[4]][1,1],DL[[5]][1,1],DL[[6]][1,1] )) # mean of insertion weight
 c0_1 = var(c(DL[[1]][1,1], DL[[2]][1,1],DL[[3]][1,1],DL[[4]][1,1],DL[[5]][1,1],DL[[6]][1,1] )) # variance of insertion weight
 m0_2 = mean(c(GL[[1]][1], GL[[2]][1],GL[[3]][1],GL[[4]][1],GL[[5]][1],GL[[6]][1])) # mean of initial growth
@@ -93,7 +93,7 @@ c0_12 = cov(c(GL[[1]][1], GL[[2]][1],GL[[3]][1],GL[[4]][1],GL[[5]][1],GL[[6]][1]
 m0 = matrix(data = c(m0_1,m0_2), ncol=2)
 c0 = matrix(data = c(c0_1,c0_12,c0_12,c0_2), ncol = 2)
 
-# Estimate s0 of the nGSSM using the avarage sample variance of the insertion weighs in the list DL: 
+# Estimate s0 of nGSSM using the avarage sample variance of insertion weighs in the list DL: 
 s0 = mean (c(DL[[1]][1,2],DL[[2]][1,2],DL[[3]][1,2],DL[[4]][1,2],DL[[5]][1,2],DL[[6]][1,2]))
 
 #--------------------------------------------------------------------------------------------------------------------------
@@ -107,14 +107,14 @@ s0 = mean (c(DL[[1]][1,2],DL[[2]][1,2],DL[[3]][1,2],DL[[4]][1,2],DL[[5]][1,2],DL
 # we can conclude that V_1=1/15=0.066
 V_1=1/15
 
-# Using the parameters in Jørgensen (1993) (doi:10.1007/s10479-010-0688-z), observation variance for
-# related to the daily feed intake  of ane individula pig is (0.16)^2 and hence for the the observation variance of average
-# weekly feed intake (for 7 days) in a pen with 15 pigs easily we can conclude that V_2 = ( (0.16^2)/15 )*7 = 0.012
+# Using the parameters in Jørgensen (1993) (doi:10.1007/s10479-010-0688-z), observation variance 
+# related to the daily feed intake of ane individula pig is (0.16)^2 and hence for the the observation variance of average
+# weekly feed intake (for 7 days) in a pen with 15 pigs we easily can conclude that V_2 = ( (0.16^2)/15 )*7 = 0.012
 V_2 = ( (0.16^2)/15 )*7 
 
 # Using V_1 and V_2, we can compute V_12 by the correlation between average weight and feed intake in the pen level (r).
 # To find the correlation r we use the simulated data of weight and feed intake generated from the file "simulation.R". 
-# Generate simulated data
+# Generate simulated data:
 source("simulation.R")
 numIteration<-10
 MH<-list()
@@ -300,9 +300,9 @@ Smoother<-function(mod,fdlm1,W){
 
 #' EM algorithm  
 #' 
-#' @param mod set of parameters needed in the GSSM model.
-#' @param fdlm1 output information of filtering the GSSM using the function DLMfilter.
-#' @param sdlm1 output information of smoothing the GSSM using the function Smoother.
+#' @param mod Set of parameters needed in the GSSM model.
+#' @param fdlm1 Output information of filtering the GSSM using the function DLMfilter.
+#' @param sdlm1 Output information of smoothing the GSSM using the function Smoother.
 #' @param D Set of the weight and feed intake data generated from the simulation.
 #' @param Wm Updated system variance of the GSSM.
 #' 

@@ -1,5 +1,5 @@
 
-#' Set the parameters of the GSSM. 
+#' Set the parameters of GSSM. 
 #' 
 #' @param t Maximumu life time of the pen
 #' @param FF design matrix of system equation.
@@ -46,7 +46,7 @@ DLMfilter<-function(mod,D,W){
    #The variance matrices of posterior for t=1 to t=12
    L2<-array(NA, dim=c(2,2,mod$t))
    
-   #The variance matrices fir the bivariate normal 
+   #The variance matrices for the bivariate normal 
    L3<-array(NA, dim=c(2,2,mod$t))
    
    #The variance matrices of prior for t=1 to t=12

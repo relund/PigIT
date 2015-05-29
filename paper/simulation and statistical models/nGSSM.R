@@ -1,5 +1,5 @@
 
-#' Set the parameters of the nGSSM
+#' Set the parameters of nGSSM
 #' 
 #' @param t Maximumu life time of the pen
 #' @param nf Number of weight observations
