@@ -1,3 +1,4 @@
+## R file for solving the HMDP
 
 library(hmdpFeedPigIT)
 require(Rcpp)   
@@ -41,3 +42,5 @@ durLbl<-"Time"
 mdp<-loadMDP(prefix, check = FALSE)
 g<-policyIteAve(mdp,wLbl,durLbl)      # Finds the optimal policy using the average reward per week (g) criterion 
 policy<-getPolicy(mdp) # optimal policy for each sId
+
+

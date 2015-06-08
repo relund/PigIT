@@ -1,3 +1,6 @@
+Simulation results used in the paper
+
+
 
 This folder contains simulated data of three pens with different genetics properties. Pen 2 has a normal growth rate and Pens 1 and 3 grow twenty percent slower and faster than Pen 2. Simulated data for each pen has been stored in the "penDaily" and "penAve" files.
 

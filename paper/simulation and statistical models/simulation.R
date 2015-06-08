@@ -1,14 +1,14 @@
-
 # R script file
 # Author: Lars Relund, Reza Pourmoayed
-# Description: Generate some random data to be used for DLM testing. Source the whole file to
+# Description: Simulate the growth of pigs in a pen. Source the whole file to
 # generate a data set for a pen (stored in a data.table dat).
 
 # For user-defined folding in R Studio make sections by setting at least four trailing dashes (-), 
 # equal signs (=), or pound signs (#) 
 # Shortcuts Alt-L = collapse, Shift+Alt+L = Expand, Alt+0 = Collapse All, Shift+Alt+J = Jump To
 
-#### Generate  ####
+
+#### Functions used in the simulation ####
 # --------------------------------------------------------------------------------------------- #
 library(MASS)
 library(data.table)
@@ -152,8 +152,8 @@ plotPigData<-function(dat) {
    plot(dat$t,dat$FI)
    lines(dat$t,predict(lo), col='red', lwd=1)
 }
-dat1<-samplePig(TLW=80,T=110)
-plotPigData(dat1)
+# dat1<-samplePig(TLW=80,T=110)
+# plotPigData(dat1)
 
 # dat<-samplePig(TLW=5,T=200)
 # plotPigData(dat)
@@ -201,8 +201,6 @@ createDailySampleData<-function(pen,pigIds, TLW,
    dtPigs[,feedMix:=feedMix]
    return(dtPigs)
 }
-
-
 
 # --------------------------------------------------------------------------------------------- #
 
@@ -307,7 +305,6 @@ calcWeekSampleData<-function(dtPigs, measurementsPerDay, measurementStd) {
    #dtPigs<-subset(dtPigs, TLW<=threshold)
 }
 
-
 # --------------------------------------------------------------------------------------------- #
 
 #' Cull pigs based on a threshold action at a given stage.
@@ -332,7 +329,6 @@ thresholdAction<-function(param, dTList, stage, th) {
    dTList$dtWeekAve<-datWeekly
    return(dTList)
 }
-
 
 # --------------------------------------------------------------------------------------------- #
 
@@ -385,8 +381,6 @@ calcFullObs<-function(dat) {
    return(dat)
 }
 
-
-
 # --------------------------------------------------------------------------------------------- #
 
 #' Set the simulation parameters for a pen.
@@ -411,8 +405,6 @@ setSimParam<-function(pen=1, pigIds=1:15,
    return(list(pen=pen, pigIds=pigIds, measurementsPerDay=measurementsPerDay, 
                measurementStd=measurementStd, DGFactor = DGFactor, k4Mean = k4Mean))
 }
-
-
 
 # --------------------------------------------------------------------------------------------- #
 
@@ -658,19 +650,6 @@ cutOff<-function(pen, feedMix, m0, C0, var0, phase, startFeed, startT, PigsCull)
 return(list( pen=list(dtDailyPig=dat2,dtWeekAve=dat1), feedMix=feedMix, m0=m0, C0=C0, var0=var0, phase=phase, startFeed=startFeed, PigsCull=PigsCull ))
 }
 
-#----------------------------------------------------------------------------------------------------------------------------
-
-
-#paramSim<-setSimParam(pen=3)
-#dat<-simulatePen(paramSim,feedMix=1,T=11*7)
-#dat<-thresholdAction(paramSim, dTList=dat, stage=8, th=70)    
-#dat
-#dat<-changeFeedMixAction(paramSim, dTList=dat, stage=9, feedMix=4)  
-#dat 
-#paramSim<-NULL
-#dat<-NULL
-
-#----------------------------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------------- #
 
 # compute the growth rate parameter of the Gompertz function based on the current live weight and the daily gain. 
@@ -688,6 +667,14 @@ GrowthParam<-function(W,G,K){
 }
 
 # --------------------------------------------------------------------------------------------- #
+
+
+
+
+
+#### Generate one simulation for 3 pens with different genetic growth ####
+
+### Set parameters and growth ###
 k4Values<-estimateK4() # Find k4 values given average daily gain over the whole period
 feedMixDailyGains<-round(c(5.8/7, 6.3/7, 6.8/7),1) #round(c(4.4/7, 5.2/7, 6/7, 6.8/7),1)  # ave daily gain of each feed-mix
 feedMixk4Values<-subset(k4Values, aveDG %in% feedMixDailyGains)$k4  # estimated k4 values for each feed-mix
@@ -695,6 +682,8 @@ feedMixk4Values<-subset(k4Values, aveDG %in% feedMixDailyGains)$k4  # estimated 
 #feedMixk4Values<-GrowthParam(W=30,G=feedMixDailyGains,K=5.3)  # estimated k4 values for each feed-mix
 penDGFactor<-c(1.3,1.1,1.3) # genetic effect on DG in pen 1-3 (10% under/over)
 
+
+### Low growth ###
 #Initial parameters:
 DFI<-0
 pigIds<-1:15
@@ -756,9 +745,12 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
 finalDataLow<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
 finalDataLowDaily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
 finalDataLow
+write.csv2(finalDataLow,"pen1Weekly.csv", row.names = FALSE)
+write.csv2(finalDataLowDaily,"pen1Daily.csv", row.names = FALSE)
 
 # --------------------------------------------------------------------------------------------- #
 
+### Normal/average growth ###
 #Initial parameters:
 DFI<-0
 pigIds<-1:15
@@ -820,9 +812,12 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
 finalDataAvg<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
 finalDataAvgDaily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
 finalDataAvg
+write.csv2(finalDataAve,"pen2Weekly.csv", row.names = FALSE)
+write.csv2(finalDataAveDaily,"pen2Daily.csv", row.names = FALSE)
 
 #-----------------------------------------------------------------------------------------------------------------------------
 
+### High growth ###
 #Initial parameters:
 DFI<-0
 pigIds<-1:15
@@ -884,28 +879,13 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
 finalDataHigh<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
 finalDataHighDaily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
 finalDataHigh
+write.csv2(finalDataHigh,"pen3Weekly.csv", row.names = FALSE)
+write.csv2(finalDataHighDaily,"pen3Daily.csv", row.names = FALSE)
 
 #---------------------------------------------------------------------------------------------------------------------
 
-pen1Ave<-finalDataLow
-pen2Ave<-finalDataAvg
-pen3Ave<-finalDataHigh 
-#pen3Ave<-pen3Ave[-10,]
-
-pen1Daily<-finalDataLowDaily
-pen2Daily<-finalDataAvgDaily
-pen3Daily<-finalDataHighDaily 
 
 
-#save(pen1Ave, file="pen1Ave")
-#save(pen2Ave, file="pen2Ave")
-#save(pen3Ave, file="pen3Ave")
-
-#save(pen1Daily, file="pen1Daily")
-#save(pen2Daily, file="pen2Daily")
-#save(pen3Daily, file="pen3Daily")
-
-#-------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -1139,12 +1119,7 @@ for(hh in 1: 3){
    
 }
 
+
 plot(c(0,13), c(1,4.7), yaxt="n", xlab='', ylab='', xaxt="n", bty='n', pch=NA)
-
 legend(0,4.5,c("Feeding action - symbol in HMDP: $ a^f $"," Individual marketing action (kg) - symbol in HMDP: $ a^\\delta $", "Continuing action - symbol in HMDP: $ \\mathtt{\\small cont.} $", "Terminating action - symbol in HMDP: $ \\mathtt{\\small term.} $"), pch = c(NA,19,17,15),lty=c(1,NA,NA,NA), lwd=c(6,NA,NA,NA), cex=1.5,box.lty=0, y.intersp=2.5 )
-
 dev.off()
-
-
-# Question: How can I scale the plots in the best feed?
-# Question: What kind of legend should I write here?
