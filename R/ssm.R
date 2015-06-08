@@ -18,7 +18,7 @@ iniDLM<-function(tMax=15,
                  GG=matrix(c(1,0,1,1),nrow=2), 
                  V=matrix(c(0.066,0.027,0.027,0.012),ncol=2),#matrix(data=c(0.066,0.00013,0.00013,0.0019),ncol=2),#matrix(c(0.25,0.013,0.013,0.73),ncol=2), 
                  W=matrix(c(2.1,-0.124,-0.124,0.112),ncol=2),#matrix(c(0,0,0,0.112),ncol=2),#matrix(data=c(0,0,0,0.0066),ncol=2),#matrix(c(2.194,1.167,1.167,1.601),ncol=2), 
-                 m0=matrix(c(26.49,6),nrow=2), 
+                 m0=matrix(c(26.49,5.8),nrow=2), 
                  C0=matrix(c(4.26,0.32,0.32,0.53),ncol=2)
 ){
   model<-list(t=t)
@@ -33,7 +33,7 @@ iniDLM<-function(tMax=15,
 }
 
 
-####################################################################
+
 
 
 #' Estimate values of \eqn{k_{1,t}} in \eqn{F_t} of the DLM and calculate the
@@ -93,7 +93,7 @@ buildDLM<-function(iniDLM,Y,k1=0.044) {
 }
 
 
-####################################################################
+
 
 
 #' Initialize the parameters for the DGLM 
@@ -118,4 +118,4 @@ iniDGLM<-function(tMax=15, nf=35, W=0, alpha0=130, beta0=17, c0=1) {
   return(model)
 }
 
-####################################################################
+

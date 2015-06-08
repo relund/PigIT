@@ -8,7 +8,7 @@
 # Shortcuts Alt-L = collapse, Shift+Alt+L = Expand, Alt+0 = Collapse All, Shift+Alt+J = Jump To
 
 #### Use the already simulated data? ####
-use<-TRUE   # change to false if want to use a new simulation
+use<-FALSE   # change to false if want to use a new simulation
 if (use) {
   fileNames<-paste("pen", 1:3, "Weekly.csv", sep="")
   file.copy(paste("simulation_paper/", fileNames, sep=""), fileNames, overwrite=T)
@@ -28,11 +28,10 @@ feedMixk4Values<-subset(k4Values, aveDG %in% feedMixDailyGains)$k4  # estimated 
 penDGFactor<-c(0.9,1.1,1.3) # genetic effect on DG in pen 1-3 (10% under/over)
 
 
-
 #### Low growth ####
 #Initial parameters:
 DFI<-0
-pigIds<-1:15
+pigIds<-1:(param$pigs)
 finalDataAve<-list() # A list to gather the reduced data tables for avgWeight 
 finalDataDaily<-list() # A list to gather the reduced data tables for daily weighta
 i<-1 # A counter for the list finalData 
@@ -99,7 +98,7 @@ write.csv2(finalDataLowDaily,"pen1Daily.csv", row.names = FALSE)
 #### Normal/average growth ####
 #Initial parameters:
 DFI<-0
-pigIds<-1:15
+pigIds<-1:(param$pigs)
 finalDataAve<-list() # A list to gather the reduced data tables for avgWeight 
 finalDataDaily<-list() # A list to gather the reduced data tables for daily weighta
 i<-1 # A counter for the list finalData 
@@ -159,14 +158,14 @@ finalDataAvg<-rbindlist(finalDataAve) # a data table included the optimal decisi
 finalDataAvgDaily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
 finalDataAvg
 write.csv2(finalDataAve,"pen2Weekly.csv", row.names = FALSE)
-write.csv2(finalDataAveDaily,"pen2Daily.csv", row.names = FALSE)
+write.csv2(finalDataAvgDaily,"pen2Daily.csv", row.names = FALSE)
 
 
 
 #### High growth ####
 #Initial parameters:
 DFI<-0
-pigIds<-1:15
+pigIds<-1:(param$pigs)
 finalDataAve<-list() # A list to gather the reduced data tables for avgWeight 
 finalDataDaily<-list() # A list to gather the reduced data tables for daily weighta
 i<-1 # A counter for the list finalData 

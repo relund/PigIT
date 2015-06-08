@@ -24,6 +24,7 @@
 #' @seealso createDailySampleData.
 #' @examples dat<-samplePig()
 #' plotPigData(dat)
+#' @export 
 samplePig<-function(pig=1,measurementStd=2,T=7*11,k4Mean=0.0166, TLW=rnorm(1,30,measurementStd), DFI=0, DGFactor=1, culled=0) { # FI (x1), DG (x2), FC (x3), TLW (x4), OLW (x5), SW (x6)
   # parameters from Jørgensen93
   k1<-c(0.044,0.002)
@@ -77,6 +78,7 @@ samplePig<-function(pig=1,measurementStd=2,T=7*11,k4Mean=0.0166, TLW=rnorm(1,30,
 #' @examples 
 #' dat<-estimateK4()
 #' plot(dat)
+#' @export 
 estimateK4<-function(ite=500) {
   k1<-c(0.044,0.002)
   k2<-c(1.549,0.005)
@@ -120,6 +122,7 @@ estimateK4<-function(ite=500) {
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @seealso createSampleData.
 #' @examples plotPigData(dat)
+#' @export 
 plotPigData<-function(dat) {
   par(mfrow=c(2,2))
   lo <- loess(dat$OLW~dat$t)
@@ -165,6 +168,7 @@ plotPigData<-function(dat) {
 #' 
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @examples dat<-createDailySampleData()
+#' @export 
 createDailySampleData<-function(pen,pigIds, TLW,
                                 culled,
                                 measurementStd,
@@ -206,6 +210,7 @@ createDailySampleData<-function(pen,pigIds, TLW,
 #' 
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @examples dat<-calcWeekSampleData()
+#' @export 
 calcWeekSampleData<-function(dtPigs, measurementsPerDay, measurementStd) {
   setkey(dtPigs,t)
   ## create weight measurements data set for all pigs (unselected pen)
@@ -300,6 +305,7 @@ calcWeekSampleData<-function(dtPigs, measurementsPerDay, measurementStd) {
 #' 
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @examples dat<-thresholdAction(dat,5,90)
+#' @export 
 thresholdAction<-function(param, dTList, stage, th) { 
   tt<-(stage-1)*7 + 1    # time instance where apply action (cull monday)  
   x<-dTList$dtDailyPig[culled==0 & t==tt,]$OLW # Reza: Observed live weights
@@ -325,6 +331,7 @@ thresholdAction<-function(param, dTList, stage, th) {
 #' 
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @examples dat<-thresholdAction(dat,5,90)
+#' @export 
 changeFeedMixAction<-function(param, dTList, stage, feedMix) { 
   tt<-(stage-1)*7  # last time instance where use old feed-mix (sunday)
   T<-dTList$dtDailyPig[,max(t)]  # last time instance simulated
@@ -352,6 +359,7 @@ changeFeedMixAction<-function(param, dTList, stage, feedMix) {
 #' @return Updated data table with additional observation columns (ending with Calc).
 #' 
 #' @author Lars Relund \email{lars@@relund.dk}
+#' @export 
 calcFullObs<-function(dat) {
   dat$sdOLWAllCalc<-dat$sdOLWAlive
   dat$aveOLWAllCalc<-dat$aveOLWAlive
@@ -378,8 +386,8 @@ calcFullObs<-function(dat) {
 #' @return A list containing the parameters. 
 #' 
 #' @author Lars Relund \email{lars@@relund.dk}
-#' @seealso 
 #' @examples dat<-simulatePen()
+#' @export 
 setSimParam<-function(pen=1, pigIds=1:15, 
                       measurementsPerDay=30,  
                       measurementStd=1,
@@ -408,8 +416,8 @@ setSimParam<-function(pen=1, pigIds=1:15,
 #' intake, ave weight and sd at the given day in the week. 
 #' 
 #' @author Lars Relund \email{lars@@relund.dk}
-#' @seealso 
 #' @examples dat<-simulatePen()
+#' @export 
 simulatePen<-function(param, feedMix, 
                       TLW = rnorm(length(param$pigIds),30,param$measurementStd),
                       culled = rep(0,length(param$pigIds)),
@@ -433,7 +441,8 @@ simulatePen<-function(param, feedMix,
 
 #'@return An extended data table with new columns eAveOLW, eSdOLW and eAve, and also the posterior variances to be used as the initial variances in the next run of SSMs 
 #'
-#'@author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
+#'@author Reza Pourmoayed \email{rpourmoayed@@econ.au.dk}
+#'@export 
 estimatePosterior<-function(dat, m0, C0, var0, startT){  
   
   # compute the filtered data:
@@ -445,7 +454,8 @@ estimatePosterior<-function(dat, m0, C0, var0, startT){
     D[2,1,t]<-round(dat$aveFIAll[t]  ,3)
   }
   #Use the filter source to filter the raw data 
-  source("GSSM.R")
+  #source("GSSM.R")
+  mod<-setGSSM()
   mod$m0<-m0
   mod$C0<-C0
   mod$t<-(param$tMax-1)-startT+1
@@ -458,7 +468,8 @@ estimatePosterior<-function(dat, m0, C0, var0, startT){
   
   #DGLM model
   # store the observations related to the DGLM in the vector ob (variance components)
-  source("nGSSM.R")
+  #source("nGSSM.R")
+  mod1<-setnGSSM()
   ob<-round(dat$sdOLWAll^2 , 3)
   mod1$m0=var0
   mod1$t<-(param$tMax-1)-startT+1
@@ -489,7 +500,8 @@ estimatePosterior<-function(dat, m0, C0, var0, startT){
 #' 
 #' @return An extended data table with new columns threshold (NA if not used) and feedMix (feed-mix used).
 #' 
-#'@author Reza Pourmoayed \email{rpourmoayed@econ.au.dk} 
+#' @author Reza Pourmoayed \email{rpourmoayed@@econ.au.dk} 
+#' @export 
 findActions<-function(pen, paramSim, param, policy, startT, phase, feedMix, startFeed) {
   # find the id of the states based on the true information 
   
@@ -591,8 +603,7 @@ findActions<-function(pen, paramSim, param, policy, startT, phase, feedMix, star
 #' @param startFeed The time that the last feedMix has been started
 #' 
 #' @return A reduced data table.
-#' 
-#' 
+#' @export 
 cutOff<-function(pen, feedMix, m0, C0, var0, phase, startFeed, startT, PigsCull) {
   # some data to play with
   dat1<-pen$dtWeekAve
@@ -634,18 +645,183 @@ cutOff<-function(pen, feedMix, m0, C0, var0, phase, startFeed, startT, PigsCull)
 
 # --------------------------------------------------------------------------------------------- #
 
-# compute the growth rate parameter of the Gompertz function based on the current live weight and the daily gain. 
-
-#'@param W weight at the current week in the production system (we suppose weight is the insertion weight in the system)
-#'@param K Logarithm of the outgrowth weight in kg
-#'@param G Daily gain in kg
-#'  
-#'@return The growth rate parameter in the Gompertz function.
+#' Compute the growth rate parameter of the Gompertz function based on the current live weight and the daily gain. 
+#' 
+#' @param W weight at the current week in the production system (we suppose weight is the insertion weight in the system)
+#' @param K Logarithm of the outgrowth weight in kg
+#' @param G Daily gain in kg
 #'
-#'@author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
+#' @return The growth rate parameter in the Gompertz function.
+#' @author Reza Pourmoayed \email{rpourmoayed@@econ.au.dk}
+#' @export 
 GrowthParam<-function(W,G,K){
-  
   return( G/(W*(K-log(W))) )
 }
 
 # --------------------------------------------------------------------------------------------- #
+
+#' Set the parameters of GSSM. 
+#' 
+#' @param t Maximumu life time of the pen
+#' @param FF design matrix of system equation.
+#' @param GG design matrix of observation equation.
+#' @param V Observation variance of the nGSSM
+#' @param W System variance of the nGSSM
+#' @param m0 Initial mean of posterior distribution at the insertion time (t=0)
+#' @param C0 Initial variance of posterior distribution at the insertion time (t=0)
+#' 
+#' @return A list containing the parameters of the GSSM. 
+#' @author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
+#' @export 
+setGSSM<-function(t=12,FF,GG,V,W,m0,C0,D){
+  model<-list(t=t)
+  model$FF<-matrix(data=c(1,0,0.044,1.549),ncol=2)
+  model$GG<-matrix(data=c(1,0,1,1),nrow=2)
+  model$V<-matrix(c(0.066,0.027,0.027,0.012),ncol=2)
+  model$W<-matrix(c(2.1,-0.124,-0.124,0.112),ncol=2) #matrix(data=c(0,0,0,0.12),ncol=2) # 
+  model$m0<-matrix(data=c(26.49,5.8),nrow=2)  
+  model$C0<-matrix(data=c(4.26,0.32,0.32,0.53),ncol=2)
+  return(model)
+}
+
+#' GSSM filtering to estimate the weight and growth during the growing period. 
+#' 
+#' @param mod set of parameters needed in the GSSM model.
+#' @param D Set of the weight and feed intake data during the growing period.
+#' @param W system variance of the GSSM.
+#' 
+#' @return Updated information of posterior. 
+#' @author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
+#' @export 
+DLMfilter<-function(mod,D,W){
+  
+  k1<-c()
+  
+  #The means of posterior for t =1 to t=12
+  L1<-array(NA, dim=c(2,1,mod$t))
+  
+  
+  #The variance matrices of posterior for t=1 to t=12
+  L2<-array(NA, dim=c(2,2,mod$t))
+  
+  #The variance matrices for the bivariate normal 
+  L3<-array(NA, dim=c(2,2,mod$t))
+  
+  #The variance matrices of prior for t=1 to t=12
+  Rt<-array(NA, dim=c(2,2,mod$t))
+  
+  for(i in 1:mod$t){
+    #Prior
+    if(i==1){
+      at<-mod$GG %*% mod$m0
+      Rt[,,i]<-mod$GG %*% mod$C0 %*% t(mod$GG) + W
+    }
+    else{
+      at<-mod$GG %*% L1[,,i-1] 
+      Rt[,,i]<-mod$GG %*% L2[,,i-1] %*% t(mod$GG) + W
+    }
+    # One step forcast
+    k1[i]<-7*0.044/(at[1]^0.25)
+    FF<-matrix(data=c(1,0,k1[i],1.549),ncol=2)
+    ft<-t(FF) %*% at
+    Qt<-t(FF) %*% Rt[,,i] %*% FF + mod$V
+    
+    #Posterior (we see y_t here)
+    At<-Rt[,,i] %*% FF %*% solve(Qt)
+    et<-D[,,i]-ft
+    L1[,,i]<-at + At %*% et   
+    L2[,,i]<-Rt[,,i] - At %*% Qt %*% t(At) 
+    L3[,,i]<-Rt[,,i] - L2[,,i] 
+  }
+  dlm<-list()
+  dlm$L1<-L1
+  dlm$L2<-L2
+  dlm$L3<-L3
+  dlm$Rt<-Rt
+  return(dlm)
+}
+
+# --------------------------------------------------------------------------------------------- #
+
+
+#' Set the parameters of nGSSM
+#' 
+#' @param t Maximumu life time of the pen
+#' @param nf Number of weight observations
+#' @param W System variance of the nGSSM
+#' @param c0 Initial shape parameter of the prior distribution (Inv-Gamma distribution)
+#' @param d0 Initial scale parameter of the prior distribution (Inv-Gamma distribution)
+#' 
+#' @return A list containing the recquired parameters. 
+#' @author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
+#' @export 
+setnGSSM<-function(t=12, nf, W, c0, d0){
+  
+  model<-list(t=t)  
+  model$nf=35  # sampel size
+  model$W=0    # system variance 
+  model$c0<-(model$nf-1)/2  # initial shape parameter
+  model$s0<-7.65 # initial sample variance in the pen at insertion time
+  model$d0<-model$c0*model$s0 #initial scale parameter 
+  model$m0= model$d0 / (model$c0 -1) # initial posterior mean 
+  model$C0=  model$m0^2 / (model$c0 -2) # initial posterior variance
+  g<-c()
+  g[1]<-1
+  for(j in 2:t){
+    
+    if(j==2 || j==3){
+      g[j]=sqrt(1.8)
+    }else{
+      g[j]=j/(j-1)
+    }  
+  }  
+  model$g<-g^2  
+  return(model)
+}
+
+
+#' nGSSM filtering to estimate the weight variances during the growing period. 
+#' 
+#' @param mod1 set of parameters of the nGSSM
+#' @param ob set of observations related to the sample variances of the weights during the growing period. 
+#' @param W System variance of the nGSSM
+#'
+#' @return Updated information of posterior. 
+#' @author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
+#' @export 
+DGLMfilter<-function(mod1,ob,W){
+  mtt<-c()
+  ctt<-c()
+  Rtt<-c()
+  error<-0
+  
+  for(i in 1:mod1$t){
+    #Prior
+    if(i==1){
+      att<-(1) * mod1$m0
+      Rtt[i]<-(1)^2 * mod1$C0 + W
+    }else{
+      att<- mod1$g[i]* mtt[i-1]
+      Rtt[i]<-mod1$g[i]^2 * ctt[i-1] + W
+    }
+    ftt<-att
+    error<-(ob[i]-ftt)^2+error
+    qtt<-Rtt[i]
+    alpha<-((ftt^3)/qtt) + ftt
+    beta<-((ftt^2)/qtt) + 1
+    alpha1<-alpha + ((mod1$nf-1)/2)*ob[i]
+    beta1<-beta + ((mod1$nf-1)/2)
+    ftt1<-(alpha1/(beta1))  
+    qtt1<-(ftt1^2)/(beta1-1)
+    mtt[i]<-ftt1
+    ctt[i]<-qtt1  
+  }
+  
+  dglm<-list()
+  dglm$mtt<-mtt
+  dglm$ctt<-ctt
+  dglm$Rtt<-Rtt
+  dglm$error<-error
+  return(dglm)
+}
+
