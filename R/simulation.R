@@ -24,6 +24,7 @@
 #' @seealso createDailySampleData.
 #' @examples dat<-samplePig()
 #' plotPigData(dat)
+#' @export 
 samplePig<-function(pig=1,measurementStd=2,T=7*11,k4Mean=0.0166, TLW=rnorm(1,30,measurementStd), DFI=0, DGFactor=1, culled=0) { # FI (x1), DG (x2), FC (x3), TLW (x4), OLW (x5), SW (x6)
   # parameters from Jørgensen93
   k1<-c(0.044,0.002)
@@ -77,6 +78,7 @@ samplePig<-function(pig=1,measurementStd=2,T=7*11,k4Mean=0.0166, TLW=rnorm(1,30,
 #' @examples 
 #' dat<-estimateK4()
 #' plot(dat)
+#' @export 
 estimateK4<-function(ite=500) {
   k1<-c(0.044,0.002)
   k2<-c(1.549,0.005)
@@ -120,6 +122,7 @@ estimateK4<-function(ite=500) {
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @seealso createSampleData.
 #' @examples plotPigData(dat)
+#' @export 
 plotPigData<-function(dat) {
   par(mfrow=c(2,2))
   lo <- loess(dat$OLW~dat$t)
@@ -165,6 +168,7 @@ plotPigData<-function(dat) {
 #' 
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @examples dat<-createDailySampleData()
+#' @export 
 createDailySampleData<-function(pen,pigIds, TLW,
                                 culled,
                                 measurementStd,
@@ -206,6 +210,7 @@ createDailySampleData<-function(pen,pigIds, TLW,
 #' 
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @examples dat<-calcWeekSampleData()
+#' @export 
 calcWeekSampleData<-function(dtPigs, measurementsPerDay, measurementStd) {
   setkey(dtPigs,t)
   ## create weight measurements data set for all pigs (unselected pen)
@@ -300,6 +305,7 @@ calcWeekSampleData<-function(dtPigs, measurementsPerDay, measurementStd) {
 #' 
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @examples dat<-thresholdAction(dat,5,90)
+#' @export 
 thresholdAction<-function(param, dTList, stage, th) { 
   tt<-(stage-1)*7 + 1    # time instance where apply action (cull monday)  
   x<-dTList$dtDailyPig[culled==0 & t==tt,]$OLW # Reza: Observed live weights
@@ -325,6 +331,7 @@ thresholdAction<-function(param, dTList, stage, th) {
 #' 
 #' @author Lars Relund \email{lars@@relund.dk}
 #' @examples dat<-thresholdAction(dat,5,90)
+#' @export 
 changeFeedMixAction<-function(param, dTList, stage, feedMix) { 
   tt<-(stage-1)*7  # last time instance where use old feed-mix (sunday)
   T<-dTList$dtDailyPig[,max(t)]  # last time instance simulated
@@ -352,6 +359,7 @@ changeFeedMixAction<-function(param, dTList, stage, feedMix) {
 #' @return Updated data table with additional observation columns (ending with Calc).
 #' 
 #' @author Lars Relund \email{lars@@relund.dk}
+#' @export 
 calcFullObs<-function(dat) {
   dat$sdOLWAllCalc<-dat$sdOLWAlive
   dat$aveOLWAllCalc<-dat$aveOLWAlive
@@ -378,8 +386,8 @@ calcFullObs<-function(dat) {
 #' @return A list containing the parameters. 
 #' 
 #' @author Lars Relund \email{lars@@relund.dk}
-#' @seealso 
 #' @examples dat<-simulatePen()
+#' @export 
 setSimParam<-function(pen=1, pigIds=1:15, 
                       measurementsPerDay=30,  
                       measurementStd=1,
@@ -408,8 +416,8 @@ setSimParam<-function(pen=1, pigIds=1:15,
 #' intake, ave weight and sd at the given day in the week. 
 #' 
 #' @author Lars Relund \email{lars@@relund.dk}
-#' @seealso 
 #' @examples dat<-simulatePen()
+#' @export 
 simulatePen<-function(param, feedMix, 
                       TLW = rnorm(length(param$pigIds),30,param$measurementStd),
                       culled = rep(0,length(param$pigIds)),
@@ -433,7 +441,8 @@ simulatePen<-function(param, feedMix,
 
 #'@return An extended data table with new columns eAveOLW, eSdOLW and eAve, and also the posterior variances to be used as the initial variances in the next run of SSMs 
 #'
-#'@author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
+#'@author Reza Pourmoayed \email{rpourmoayed@@econ.au.dk}
+#'@export 
 estimatePosterior<-function(dat, m0, C0, var0, startT){  
   
   # compute the filtered data:
@@ -489,7 +498,8 @@ estimatePosterior<-function(dat, m0, C0, var0, startT){
 #' 
 #' @return An extended data table with new columns threshold (NA if not used) and feedMix (feed-mix used).
 #' 
-#'@author Reza Pourmoayed \email{rpourmoayed@econ.au.dk} 
+#' @author Reza Pourmoayed \email{rpourmoayed@@econ.au.dk} 
+#' @export 
 findActions<-function(pen, paramSim, param, policy, startT, phase, feedMix, startFeed) {
   # find the id of the states based on the true information 
   
@@ -591,8 +601,7 @@ findActions<-function(pen, paramSim, param, policy, startT, phase, feedMix, star
 #' @param startFeed The time that the last feedMix has been started
 #' 
 #' @return A reduced data table.
-#' 
-#' 
+#' @export 
 cutOff<-function(pen, feedMix, m0, C0, var0, phase, startFeed, startT, PigsCull) {
   # some data to play with
   dat1<-pen$dtWeekAve
@@ -634,17 +643,16 @@ cutOff<-function(pen, feedMix, m0, C0, var0, phase, startFeed, startT, PigsCull)
 
 # --------------------------------------------------------------------------------------------- #
 
-# compute the growth rate parameter of the Gompertz function based on the current live weight and the daily gain. 
-
-#'@param W weight at the current week in the production system (we suppose weight is the insertion weight in the system)
-#'@param K Logarithm of the outgrowth weight in kg
-#'@param G Daily gain in kg
-#'  
-#'@return The growth rate parameter in the Gompertz function.
+#' Compute the growth rate parameter of the Gompertz function based on the current live weight and the daily gain. 
+#' 
+#' @param W weight at the current week in the production system (we suppose weight is the insertion weight in the system)
+#' @param K Logarithm of the outgrowth weight in kg
+#' @param G Daily gain in kg
 #'
-#'@author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
+#' @return The growth rate parameter in the Gompertz function.
+#' @author Reza Pourmoayed \email{rpourmoayed@@econ.au.dk}
+#' @export 
 GrowthParam<-function(W,G,K){
-  
   return( G/(W*(K-log(W))) )
 }
 

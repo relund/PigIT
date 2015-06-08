@@ -33,7 +33,7 @@ iniDLM<-function(tMax=15,
 }
 
 
-####################################################################
+
 
 
 #' Estimate values of \eqn{k_{1,t}} in \eqn{F_t} of the DLM and calculate the
@@ -93,7 +93,7 @@ buildDLM<-function(iniDLM,Y,k1=0.044) {
 }
 
 
-####################################################################
+
 
 
 #' Initialize the parameters for the DGLM 
@@ -118,4 +118,4 @@ iniDGLM<-function(tMax=15, nf=35, W=0, alpha0=130, beta0=17, c0=1) {
   return(model)
 }
 
-####################################################################
+
