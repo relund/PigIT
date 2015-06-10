@@ -7,5 +7,3 @@
 source("optimize_hmdp.R")   # find optimal policy
 source("simulate.R")        # simulate the 3 pens (use optimal policy to identify feed-mix and number of pigs)
 source("plot.R")            # plot the results
-
-

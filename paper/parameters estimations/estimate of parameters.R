@@ -115,13 +115,13 @@ V_2 = ( (0.16^2)/15 )*7
 # Using V_1 and V_2, we can compute V_12 by the correlation between average weight and feed intake in the pen level (r).
 # To find the correlation r we use the simulated data of weight and feed intake generated from the file "simulation.R". 
 # Generate simulated data:
-source("simulation.R")
+#source("simulation.R")
 numIteration<-10
 MH<-list()
 DL<-list()
 corel<-c()
 for(i in 1:numIteration){
-  param<-setSimParam(pen=2)
+  param<-setSimParam()
   dat<-simulatePen(param,1,T=11*7)
   iniWeight<-mean(dat$dtDailyPig[t==1]$OLW)
   iniFI<-sum(dat$dtDailyPig[t==1:6]$FI)/15
@@ -141,18 +141,17 @@ V = matrix(c(V_1,V_12,V_12,V_2),ncol = 2)
 #Estimate of W in the GSSM
 # To find the System variance of GSSM, we apply the EM algorithm (C. Dethlefsen. Space Time Problems and Applications. PhD thesis, Aalborg University,
 # Denmark, 2001) using the simulated data. Simulate data is generated using the the file "simulation.R":
-source("simulation.R")
+#source("simulation.R")
 numIteration<-10
 MH<-list()
 DL<-list()
 corel<c()
 for(i in 1:numIteration){
-  param<-setSimParam(pen=2)
+  param<-setSimParam()
   dat<-simulatePen(param,1,T=11*7)
   iniWeight<-mean(dat$dtDailyPig[t==1]$OLW)
   iniFI<-sum(dat$dtDailyPig[t==1:6]$FI)/15
   DL[[i]]<-cbind(append(iniWeight,dat$dtWeekAve$aveOLWAll), append(iniFI,dat$dtWeekAve$aveFIAll))
-  corel[i]<-cor(append(iniWeight,dat$dtWeekAve$aveOLWAll), append(iniFI,dat$dtWeekAve$aveFIAll))
 }
 for(j in 1:numIteration){
   D<-array(NA,dim=c(2,1,dim(DL[[j]])[1]))

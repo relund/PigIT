@@ -8,9 +8,9 @@
 #' @param d0 Initial scale parameter of the prior distribution (Inv-Gamma distribution)
 #' 
 #' @return A list containing the recquired parameters. 
-#' 
-#'@author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
-setmodel2<-function(t=12, nf, W, c0, d0){
+#' @author Reza Pourmoayed \email{rpourmoayed@@econ.au.dk}
+#' @export 
+setnGSSM<-function(t=12, nf, W, c0, d0){
   
   model<-list(t=t)  
   model$nf=35  # sampel size
@@ -23,18 +23,17 @@ setmodel2<-function(t=12, nf, W, c0, d0){
   g<-c()
   g[1]<-1
   for(j in 2:t){
-          
-     if(j==2 || j==3){
-        g[j]=sqrt(1.8)
-     }else{
-        g[j]=j/(j-1)
-     }  
+    
+    if(j==2 || j==3){
+      g[j]=sqrt(1.8)
+    }else{
+      g[j]=j/(j-1)
+    }  
   }  
   model$g<-g^2  
   return(model)
 }
 
-mod1<-setmodel2()
 
 #' nGSSM filtering to estimate the weight variances during the growing period. 
 #' 
@@ -43,8 +42,8 @@ mod1<-setmodel2()
 #' @param W System variance of the nGSSM
 #'
 #' @return Updated information of posterior. 
-#' 
-#'@author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
+#' @author Reza Pourmoayed \email{rpourmoayed@@econ.au.dk}
+#' @export 
 DGLMfilter<-function(mod1,ob,W){
   mtt<-c()
   ctt<-c()
@@ -80,5 +79,3 @@ DGLMfilter<-function(mod1,ob,W){
   dglm$error<-error
   return(dglm)
 }
-
-   
