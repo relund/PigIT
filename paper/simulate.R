@@ -27,7 +27,7 @@ feedMixDailyGains<-round(c(5.8/7, 6.3/7, 6.8/7),1) #round(c(4.4/7, 5.2/7, 6/7, 6
 feedMixk4Values<-subset(k4Values, aveDG %in% feedMixDailyGains)$k4  # estimated k4 values for each feed-mix
 #feedMixk4Values
 #feedMixk4Values<-GrowthParam(W=30,G=feedMixDailyGains,K=5.3)  # estimated k4 values for each feed-mix
-penDGFactor<-c(0.9,1.1,1.3) # genetic effect on DG in pen 1-3 (10% under/over)
+penDGFactor<-c(0.92,1.12,1.32) # genetic effect on DG in pen 1-3 (10% under/over)
 
 
 #### Low growth ####

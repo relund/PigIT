@@ -25,7 +25,6 @@ public:  // methods
      */
    DGLM(const List dglmParam) {
       List rParam(dglmParam); 
-      beta0 = as<double>(rParam["beta0"]);
       numSample = as<int>(rParam["nf"]);
    }
    
@@ -67,9 +66,6 @@ public:  // methods
 public: 
    int numSample;
 
-
-private:   
-   double beta0;
 };
 
 
