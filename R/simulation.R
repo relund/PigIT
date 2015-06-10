@@ -671,7 +671,7 @@ GrowthParam<-function(W,G,K){
 #' @param C0 Initial variance of posterior distribution at the insertion time (t=0)
 #' 
 #' @return A list containing the parameters of the GSSM. 
-#' @author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
+#' @author Reza Pourmoayed \email{rpourmoayed@@econ.au.dk}
 #' @export 
 setGSSM<-function(t=12,FF,GG,V,W,m0,C0,D){
   model<-list(t=t)
@@ -691,7 +691,7 @@ setGSSM<-function(t=12,FF,GG,V,W,m0,C0,D){
 #' @param W system variance of the GSSM.
 #' 
 #' @return Updated information of posterior. 
-#' @author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
+#' @author Reza Pourmoayed \email{rpourmoayed@@econ.au.dk}
 #' @export 
 DLMfilter<-function(mod,D,W){
   
@@ -753,7 +753,7 @@ DLMfilter<-function(mod,D,W){
 #' @param d0 Initial scale parameter of the prior distribution (Inv-Gamma distribution)
 #' 
 #' @return A list containing the recquired parameters. 
-#' @author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
+#' @author Reza Pourmoayed \email{rpourmoayed@@econ.au.dk}
 #' @export 
 setnGSSM<-function(t=12, nf, W, c0, d0){
   
@@ -787,7 +787,7 @@ setnGSSM<-function(t=12, nf, W, c0, d0){
 #' @param W System variance of the nGSSM
 #'
 #' @return Updated information of posterior. 
-#' @author Reza Pourmoayed \email{rpourmoayed@econ.au.dk}
+#' @author Reza Pourmoayed \email{rpourmoayed@@econ.au.dk}
 #' @export 
 DGLMfilter<-function(mod1,ob,W){
   mtt<-c()

@@ -41,3 +41,4 @@ g<-policyIteAve(mdp,wLbl,durLbl)      # Finds the optimal policy using the avera
 policy<-getPolicy(mdp) # optimal policy for each sId
 
 do.call(file.remove,list(list.files(pattern = prefix)))
+rm(mdp)

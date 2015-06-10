@@ -27,9 +27,9 @@
 #'   \item Must have a constant sampleSizePigs = 35 (pigs measured using e.g. vision per day) used in the DGLM code instead of n. Must be defined in setParam function.
 #' }
 #' 
-#' @name PigIT-package
-#' @aliases PigIT
+#' @name hmdpFeedPigIT-package
+#' @aliases hmdpFeedPigIT
 #' @docType package
 #' @author Lars Relund \email{lars@@relund.dk} and Reza Pourmoayed \email{rpourmoayed@@econ.au.dk}.
-#' @useDynLib PigIT
+#' @useDynLib hmdpFeedPigIT
 NULL

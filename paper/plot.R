@@ -9,18 +9,9 @@
 
 #Three simulated pen 
 
-load("pen1Ave")
-load("pen2Ave")
-load("pen3Ave")
-
-load("pen1Daily")
-load("pen2Daily")
-load("pen3Daily")
-
-
-pen1<-pen1Ave
-pen2<-pen2Ave
-pen3<-pen3Ave
+pen1<-pen1Weekly
+pen2<-pen2Weekly
+pen3<-pen3Weekly
 
 insertRow<-function(pen, penDaily){
   

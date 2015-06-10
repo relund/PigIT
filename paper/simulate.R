@@ -8,12 +8,14 @@
 # Shortcuts Alt-L = collapse, Shift+Alt+L = Expand, Alt+0 = Collapse All, Shift+Alt+J = Jump To
 
 #### Use the already simulated data? ####
-use<-FALSE   # change to false if want to use a new simulation
+use<-TRUE  # change to false if want to use a new simulation
 if (use) {
-  fileNames<-paste("pen", 1:3, "Weekly.csv", sep="")
-  file.copy(paste("simulation_paper/", fileNames, sep=""), fileNames, overwrite=T)
-  fileNames<-paste("pen", 1:3, "Daily.csv", sep="")
-  file.copy(paste("simulation_paper/", fileNames, sep=""), fileNames, overwrite=T)
+  pen1Weekly <- read.csv2("simulation_paper/pen1Weekly.csv")
+  pen1Daily <- read.csv2("simulation_paper/pen1Daily.csv")
+  pen2Weekly <- read.csv2("simulation_paper/pen2Weekly.csv")
+  pen2Daily <- read.csv2("simulation_paper/pen2Daily.csv")
+  pen3Weekly <- read.csv2("simulation_paper/pen3Weekly.csv")
+  pen3Daily <- read.csv2("simulation_paper/pen3Daily.csv")
   stop("Use the data generated in the simulation_paper folder.")
 }
 
@@ -87,11 +89,11 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
    
    if ( (DFI==(param$tMax-1)*7) || all(PigsCull!=0) ) break
 }
-finalDataLow<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
-finalDataLowDaily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
-finalDataLow
-write.csv2(finalDataLow,"pen1Weekly.csv", row.names = FALSE)
-write.csv2(finalDataLowDaily,"pen1Daily.csv", row.names = FALSE)
+pen1Weekly<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
+pen1Daily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
+#pen1Weekly
+write.csv2(pen1Weekly,"pen1Weekly.csv", row.names = FALSE)
+write.csv2(pen1Daily,"pen1Daily.csv", row.names = FALSE)
 
 
 
@@ -154,11 +156,11 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
    
    if ( (DFI==(param$tMax-1)*7) || all(PigsCull!=0) ) break
 }
-finalDataAvg<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
-finalDataAvgDaily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
-finalDataAvg
-write.csv2(finalDataAve,"pen2Weekly.csv", row.names = FALSE)
-write.csv2(finalDataAvgDaily,"pen2Daily.csv", row.names = FALSE)
+pen2Weekly<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
+pen2Daily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
+pen2Weekly
+write.csv2(pen2Weekly,"pen2Weekly.csv", row.names = FALSE)
+write.csv2(pen2Daily,"pen2Daily.csv", row.names = FALSE)
 
 
 
@@ -221,11 +223,11 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
    
    if ( (DFI==(param$tMax-1)*7) || all(PigsCull!=0) ) break
 }
-finalDataHigh<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
-finalDataHighDaily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
-finalDataHigh
-write.csv2(finalDataHigh,"pen3Weekly.csv", row.names = FALSE)
-write.csv2(finalDataHighDaily,"pen3Daily.csv", row.names = FALSE)
+pen3Weekly<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
+pen3Daily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
+pen3Weekly
+write.csv2(pen3Weekly,"pen3Weekly.csv", row.names = FALSE)
+write.csv2(pen3Daily,"pen3Daily.csv", row.names = FALSE)
 
 
 

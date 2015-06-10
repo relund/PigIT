@@ -7,7 +7,7 @@
 iniDLM(tMax = 15, k2 = 1.549, FF = matrix(data = c(1, 0, 0.044, k2), ncol
   = 2), GG = matrix(c(1, 0, 1, 1), nrow = 2), V = matrix(c(0.066, 0.027,
   0.027, 0.012), ncol = 2), W = matrix(c(2.1, -0.124, -0.124, 0.112), ncol =
-  2), m0 = matrix(c(26.49, 6), nrow = 2), C0 = matrix(c(4.26, 0.32, 0.32,
+  2), m0 = matrix(c(26.49, 5.8), nrow = 2), C0 = matrix(c(4.26, 0.32, 0.32,
   0.53), ncol = 2))
 }
 \arguments{
