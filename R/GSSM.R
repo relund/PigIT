@@ -13,12 +13,12 @@
 #' @export 
 setGSSM<-function(t=12,FF,GG,V,W,m0,C0,D){
   model<-list(t=t)
-  model$FF<-matrix(data=c(1,0,0.044,1.549),ncol=2)
-  model$GG<-matrix(data=c(1,0,1,1),nrow=2)
-  model$V<-matrix(c(0.066,0.027,0.027,0.012),ncol=2)
-  model$W<-matrix(c(2.1,-0.124,-0.124,0.112),ncol=2) #matrix(data=c(0,0,0,0.12),ncol=2) # 
-  model$m0<-matrix(data=c(26.49,5.8),nrow=2)  
-  model$C0<-matrix(data=c(4.26,0.32,0.32,0.53),ncol=2)
+  model$FF<-t(dlms[[1]]$FF) #matrix(data=c(1,0,0.044,1.549),ncol=2)
+  model$GG<-dlms[[1]]$GG #matrix(data=c(1,0,1,1),nrow=2)
+  model$V<-dlms[[1]]$V #matrix(c(0.066,0.027,0.027,0.012),ncol=2)
+  model$W<-dlms[[1]]$W #matrix(c(2.1,-0.124,-0.124,0.112),ncol=2) #matrix(data=c(0,0,0,0.12),ncol=2) # 
+  model$m0<-dlms[[1]]$m0 #matrix(data=c(26.49,5.8),nrow=2)  
+  model$C0<- dlms[[1]]$C0  #Wmatrix(data=c(4.26,0.32,0.32,0.53),ncol=2)
   return(model)
 }
 

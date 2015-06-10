@@ -27,7 +27,7 @@ feedMixDailyGains<-round(c(5.8/7, 6.3/7, 6.8/7),1) #round(c(4.4/7, 5.2/7, 6/7, 6
 feedMixk4Values<-subset(k4Values, aveDG %in% feedMixDailyGains)$k4  # estimated k4 values for each feed-mix
 #feedMixk4Values
 #feedMixk4Values<-GrowthParam(W=30,G=feedMixDailyGains,K=5.3)  # estimated k4 values for each feed-mix
-penDGFactor<-c(0.9,1.1,1.3) # genetic effect on DG in pen 1-3 (10% under/over)
+penDGFactor<-c(0.92,1.12,1.32) # genetic effect on DG in pen 1-3 (10% under/over)
 
 
 #### Low growth ####
@@ -92,7 +92,7 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
 pen1Weekly<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
 pen1Weekly<-pen1Weekly[pen1Weekly$alive!=0]
 pen1Daily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
-#pen1Weekly
+pen1Weekly
 write.csv2(pen1Weekly,"pen1Weekly.csv", row.names = FALSE)
 write.csv2(pen1Daily,"pen1Daily.csv", row.names = FALSE)
 
@@ -160,7 +160,7 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
 pen2Weekly<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
 pen2Weekly<-pen2Weekly[pen2Weekly$alive!=0]
 pen2Daily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
-#pen2Weekly
+pen2Weekly
 write.csv2(pen2Weekly,"pen2Weekly.csv", row.names = FALSE)
 write.csv2(pen2Daily,"pen2Daily.csv", row.names = FALSE)
 
@@ -228,7 +228,7 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
 pen3Weekly<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
 pen3Weekly<-pen3Weekly[pen3Weekly$alive!=0]
 pen3Daily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
-
+pen3Weekly
 #pen3Weekly
 write.csv2(pen3Weekly,"pen3Weekly.csv", row.names = FALSE)
 write.csv2(pen3Daily,"pen3Daily.csv", row.names = FALSE)

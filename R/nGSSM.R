@@ -13,13 +13,13 @@
 setnGSSM<-function(t=12, nf, W, c0, d0){
   
   model<-list(t=t)  
-  model$nf=35  # sampel size
-  model$W=0    # system variance 
-  model$c0<-(model$nf-1)/2  # initial shape parameter
-  model$s0<-7.65 # initial sample variance in the pen at insertion time
+  model$nf=dglmParam$nf  #35  # sampel size
+  model$W=dglmParam$W  #0    # system variance 
+  model$c0<-(dglmParam$nf-1)/2  # initial shape parameter
+  model$s0<-dglmParam$s0 #7.65 # initial sample variance in the pen at insertion time
   model$d0<-model$c0*model$s0 #initial scale parameter 
   model$m0= model$d0 / (model$c0 -1) # initial posterior mean 
-  model$C0=  model$m0^2 / (model$c0 -2) # initial posterior variance
+  model$C0= model$m0^2 / (model$c0 -2) # initial posterior variance
   g<-c()
   g[1]<-1
   for(j in 2:t){

@@ -108,13 +108,11 @@ buildDLM<-function(iniDLM,Y,k1=0.044) {
 #' @return A list containing all the parameters
 #' @export
 #' @author Reza Pourmoayed \email{rpourmoayed@@econ.au.dk} and Lars Relund \email{lars@@relund.dk}
-iniDGLM<-function(tMax=15, nf=35, W=0, alpha0=130, beta0=17, c0=1) {
+iniDGLM<-function(tMax=15, nf=35, W=0, s0=7.65) {
   model<-list(tMax=tMax)  
   model$nf=35
   model$W=0 #? I consider this number as zero  based on the Anders paper and talking with him. 
-  model$alpha0=130
-  model$beta0=17
-  model$co=1
+  model$s0=7.65
   return(model)
 }
 
