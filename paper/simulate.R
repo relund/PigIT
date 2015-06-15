@@ -101,10 +101,11 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
 pen1Weekly<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
 pen1Weekly<-pen1Weekly[pen1Weekly$alive!=0]
 pen1Daily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
-pen1Weekly
-write.csv2(pen1Weekly,"pen1Weekly.csv", row.names = FALSE)
-write.csv2(pen1Daily,"pen1Daily.csv", row.names = FALSE)
-
+pen1WeeklyCSV<-copy(pen1Weekly)
+pen1DailyCSV<-copy(pen1Daily)
+write.csv2(pen1WeeklyCSV[,c(5:10,12:14,18:21):=NULL],"pen1Weekly.csv", row.names = FALSE)
+write.csv2(pen1DailyCSV[,c(4:5,7,10):=NULL],"pen1Daily.csv", row.names = FALSE)
+rm(pen1WeeklyCSV,pen1DailyCSV)
 
 
 #### Normal/average growth ####
@@ -169,10 +170,11 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
 pen2Weekly<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
 pen2Weekly<-pen2Weekly[pen2Weekly$alive!=0]
 pen2Daily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
-pen2Weekly
-write.csv2(pen2Weekly,"pen2Weekly.csv", row.names = FALSE)
-write.csv2(pen2Daily,"pen2Daily.csv", row.names = FALSE)
-
+pen2WeeklyCSV<-copy(pen2Weekly)
+pen2DailyCSV<-copy(pen2Daily)
+write.csv2(pen2WeeklyCSV[,c(5:10,12:14,18:21):=NULL],"pen2Weekly.csv", row.names = FALSE)
+write.csv2(pen2DailyCSV[,c(4:5,7,10):=NULL],"pen2Daily.csv", row.names = FALSE)
+rm(pen2WeeklyCSV,pen2DailyCSV)
 
 
 #### High growth ####
@@ -237,9 +239,9 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
 pen3Weekly<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
 pen3Weekly<-pen3Weekly[pen3Weekly$alive!=0]
 pen3Daily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
-pen3Weekly
-#pen3Weekly
-write.csv2(pen3Weekly,"pen3Weekly.csv", row.names = FALSE)
-write.csv2(pen3Daily,"pen3Daily.csv", row.names = FALSE)
-
+pen3WeeklyCSV<-copy(pen3Weekly)
+pen3DailyCSV<-copy(pen3Daily)
+write.csv2(pen3WeeklyCSV[,c(5:10,12:14,18:21):=NULL],"pen3Weekly.csv", row.names = FALSE)
+write.csv2(pen3DailyCSV[,c(4:5,7,10):=NULL],"pen3Daily.csv", row.names = FALSE)
+rm(pen3WeeklyCSV,pen3DailyCSV)
 
