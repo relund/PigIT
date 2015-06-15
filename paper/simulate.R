@@ -8,7 +8,7 @@
 # Shortcuts Alt-L = collapse, Shift+Alt+L = Expand, Alt+0 = Collapse All, Shift+Alt+J = Jump To
 
 #### Use the already simulated data? ####
-use<-TRUE  # change to false if want to use a new simulation
+use<-F  # change to false if want to use a new simulation
 if (use) {
   pen1Weekly <- read.csv2("simulation_paper/pen1Weekly.csv")
   pen1Daily <- read.csv2("simulation_paper/pen1Daily.csv")
@@ -16,10 +16,8 @@ if (use) {
   pen2Daily <- read.csv2("simulation_paper/pen2Daily.csv")
   pen3Weekly <- read.csv2("simulation_paper/pen3Weekly.csv")
   pen3Daily <- read.csv2("simulation_paper/pen3Daily.csv")
-#  stop("Use the data generated in the simulation_paper folder.")
+  stop("Use the data generated in the simulation_paper folder.")
 }
-
-
 
 #### Set parameters and growth ####
 k4Values<-estimateK4() # Find k4 values given average daily gain over the whole period
@@ -28,7 +26,25 @@ feedMixk4Values<-subset(k4Values, aveDG %in% feedMixDailyGains)$k4  # estimated 
 #feedMixk4Values
 #feedMixk4Values<-GrowthParam(W=30,G=feedMixDailyGains,K=5.3)  # estimated k4 values for each feed-mix
 penDGFactor<-c(0.92,1.12,1.32) # genetic effect on DG in pen 1-3 (10% under/over)
-
+#Function to add the information of t=0 (inserting time into pen) to the dataframes penWeeky.  
+insertRow<-function(pen, penDaily){
+  pen$week<-pen$week+1
+  pen<-rbind(pen[1,],pen)
+  pen[1]$t<-as.integer(0)
+  pen[1]$aveOLWAll<-mean(penDaily[t==1]$OLW)
+  pen[1]$aveTLWAll<-mean(penDaily[t==1]$TLW)
+  pen[1]$sdOLWAll<-sd(penDaily[t==1]$OLW)
+  pen[1]$aveFIAll<-sum(penDaily[t==1]$FI)/15*7
+  pen[1]$week<-1   
+  pen[1]$stage<-1    
+  pen[1]$eAveOLWAll<-26.49
+  pen[1]$eAveGAll<-5.8
+  pen[1]$eSdOLWAll<-2.850987
+  pen[1]$eVarOLWAll<-4.26
+  pen[1]$eVarGAll<-0.53
+  pen[1]$eCovAll<-0.32
+  return(pen)
+}
 
 #### Low growth ####
 #Initial parameters:
@@ -92,11 +108,11 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
 pen1Weekly<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
 pen1Weekly<-pen1Weekly[pen1Weekly$alive!=0]
 pen1Daily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
-pen1Weekly
+pen1Weekly<-insertRow(pen1Weekly,pen1Daily)
+pen1Weekly[,c(5:10,12:14,19:21):=NULL]
+pen1Daily[,c(4:5,7,10):=NULL]
 write.csv2(pen1Weekly,"pen1Weekly.csv", row.names = FALSE)
 write.csv2(pen1Daily,"pen1Daily.csv", row.names = FALSE)
-
-
 
 #### Normal/average growth ####
 #Initial parameters:
@@ -160,10 +176,11 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
 pen2Weekly<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
 pen2Weekly<-pen2Weekly[pen2Weekly$alive!=0]
 pen2Daily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
-pen2Weekly
+pen2Weekly<-insertRow(pen2Weekly,pen2Daily)
+pen2Weekly[,c(5:10,12:14,19:21):=NULL]
+pen2Daily[,c(4:5,7,10):=NULL]
 write.csv2(pen2Weekly,"pen2Weekly.csv", row.names = FALSE)
 write.csv2(pen2Daily,"pen2Daily.csv", row.names = FALSE)
-
 
 
 #### High growth ####
@@ -228,9 +245,9 @@ while( (DFI!=(param$tMax-1)*7) || (length(pigIds)>0) ){
 pen3Weekly<-rbindlist(finalDataAve) # a data table included the optimal decisions with the updated data for Ave information
 pen3Weekly<-pen3Weekly[pen3Weekly$alive!=0]
 pen3Daily<-rbindlist(finalDataDaily)  # a data table included the simulated data for daily information
-pen3Weekly
-#pen3Weekly
+pen3Weekly<-insertRow(pen3Weekly,pen3Daily)
+pen3Weekly[,c(5:10,12:14,19:21):=NULL]
+pen3Daily[,c(4:5,7,10):=NULL]
 write.csv2(pen3Weekly,"pen3Weekly.csv", row.names = FALSE)
 write.csv2(pen3Daily,"pen3Daily.csv", row.names = FALSE)
-
 

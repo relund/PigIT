@@ -25,7 +25,8 @@ Contains weekly information in the pen level. Observed weekly weigh and feed int
   aveFIAll: The average feed intake in the pen level (for an unselected pen).
   alive: Number of pigs that has been remained in the pen.
   pen: Pen number.
-  week: Week number. 
+  week: Week number.
+  weekDay: Number of days in a week (always equal to 7).
   stage: Stage number in the HMDP.
   eAveOLWALL: Estimated mean of live weight in the pen level (output of GSSM).  
   eAveGALL: Estimated mean of growth rate in the pen level (output of GSSM).

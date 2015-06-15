@@ -5,30 +5,6 @@ pen1<-pen1Weekly
 pen2<-pen2Weekly
 pen3<-pen3Weekly
 
-#' Add instance for t=0 (start of week 1)
-insertRow<-function(pen, penDaily){
-  pen$week<-pen$week+1
-  pen<-rbind(pen[1,],pen)
-  pen[1]$t<-as.integer(0)
-  pen[1]$aveOLWAll<-mean(penDaily[t==1]$OLW)
-  pen[1]$aveTLWAll<-mean(penDaily[t==1]$TLW)
-  pen[1]$sdOLWAll<-sd(penDaily[t==1]$OLW)
-  pen[1]$aveFIAll<-sum(penDaily[t==1]$FI)/15*7
-  pen[1]$week<-1   
-  pen[1]$stage<-1    
-  pen[1]$eAveOLWAll<-26.49
-  pen[1]$eAveGAll<-6
-  pen[1]$eSdOLWAll<-2.850987
-  pen[1]$eVarOLWAll<-4.26
-  pen[1]$eVarGAll<-0.53
-  pen[1]$eCovAll<-0.32
-  return(pen)
-}
-
-pen1<-insertRow(pen1, pen1Daily)
-pen2<-insertRow(pen2, pen2Daily)
-pen3<-insertRow(pen3, pen3Daily)
-
 #' Find the times when we resimulate 
 #' 
 #' @param pen A data fram included our information
@@ -159,7 +135,7 @@ for(hh in 1:3){
   last<-vecTH[length(changeTime(pen)[[1]] ) ]
   
   vecFCor<-c(3.2,3.8,4.4)
-  if( vecFM==0){
+  if( vecFM[1]==0){
     datL3<-rep(vecFCor[1],last)
     lines(datL3, type="l", lwd=4)
   }else{
