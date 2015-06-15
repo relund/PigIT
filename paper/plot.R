@@ -1,10 +1,13 @@
 ## R script file for plotting the simulated data
-require(tools)
+library(hmdpFeedPigIT)
+library(tools)
 # Three simulated pens
 pen1<-pen1Weekly
 pen2<-pen2Weekly
 pen3<-pen3Weekly
 
+# pen<-pen1
+# penDaily<-pen1Daily
 #' Add instance for t=0 (start of week 1)
 insertRow<-function(pen, penDaily){
   pen$week<-pen$week+1
@@ -124,6 +127,9 @@ plot + guides(shape = g, linetype=g) +
         strip.background=element_rect(fill = NA)) 
 dev.off()
 
+
+
+
 #------------------------------------------------------------------------------------------------
 # Plot optimal decisions
 #pdf("tmp.pdf", width = 12, height = 6)
@@ -208,6 +214,5 @@ dev.off()
 
 tools::texi2pdf(file = "sim_plot.tex", clean = T)
 tools::texi2pdf(file = "opt_plot.tex", clean = T)
-
 
 do.call(file.remove,list(list.files(pattern = ".tex")))

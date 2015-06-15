@@ -9,16 +9,25 @@
 
 #### Use the already simulated data? ####
 use<-TRUE  # change to false if want to use a new simulation
+options(stringsAsFactors = FALSE)
 if (use) {
-  pen1Weekly <- read.csv2("simulation_paper/pen1Weekly.csv")
-  pen1Daily <- read.csv2("simulation_paper/pen1Daily.csv")
-  pen2Weekly <- read.csv2("simulation_paper/pen2Weekly.csv")
-  pen2Daily <- read.csv2("simulation_paper/pen2Daily.csv")
-  pen3Weekly <- read.csv2("simulation_paper/pen3Weekly.csv")
-  pen3Daily <- read.csv2("simulation_paper/pen3Daily.csv")
-#  stop("Use the data generated in the simulation_paper folder.")
+  pen1Weekly <- as.data.table(read.table("simulation_paper/pen1Weekly.csv", sep = ";", dec=".", header = T))
+  pen1Daily <- as.data.table(read.table("simulation_paper/pen1Daily.csv", sep = ";", dec=".", header = T))
+  pen2Weekly <- as.data.table(read.table("simulation_paper/pen2Weekly.csv", sep = ";", dec=".", header = T))
+  pen2Daily <- as.data.table(read.table("simulation_paper/pen2Daily.csv", sep = ";", dec=".", header = T))
+  pen3Weekly <- as.data.table(read.table("simulation_paper/pen3Weekly.csv", sep = ";", dec=".", header = T))
+  pen3Daily <- as.data.table(read.table("simulation_paper/pen3Daily.csv", sep = ";", dec=".", header = T))
+  stop("Use the data generated in the simulation_paper folder.")
 }
 
+
+# 
+# pen1Weekly <- as.data.table(read.table("pen1Weekly.csv", sep = ";", dec=".", header = T))
+# pen1Daily <- as.data.table(read.table("pen1Daily.csv", sep = ";", dec=".", header = T))
+# pen2Weekly <- as.data.table(read.table("pen2Weekly.csv", sep = ";", dec=".", header = T))
+# pen2Daily <- as.data.table(read.table("pen2Daily.csv", sep = ";", dec=".", header = T))
+# pen3Weekly <- as.data.table(read.table("pen3Weekly.csv", sep = ";", dec=".", header = T))
+# pen3Daily <- as.data.table(read.table("pen3Daily.csv", sep = ";", dec=".", header = T))
 
 
 #### Set parameters and growth ####
