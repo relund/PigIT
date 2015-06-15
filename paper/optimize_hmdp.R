@@ -4,7 +4,7 @@ library(hmdpFeedPigIT)
 set.seed(234567)
 
 # Set HMDP parameters: 
-param<-setParameters(pigs=15, 
+param<-setParameters(pigs=5, 
                      rations=3,
                      phases=4,
                      tMax=12,
