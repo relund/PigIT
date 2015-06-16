@@ -4,7 +4,7 @@
 \alias{iniDGLM}
 \title{Initialize the parameters for the DGLM}
 \usage{
-iniDGLM(tMax = 15, nf = 35, W = 0, alpha0 = 130, beta0 = 17, c0 = 1)
+iniDGLM(tMax = 15, nf = 35, W = 0, s0 = 7.65)
 }
 \arguments{
 \item{tMax}{Maximum growth period in weeks.}
@@ -13,11 +13,7 @@ iniDGLM(tMax = 15, nf = 35, W = 0, alpha0 = 130, beta0 = 17, c0 = 1)
 
 \item{W}{System variance (we suppose this value is 0 in the DGLM)}
 
-\item{alpha0}{Initial shape parameter at time t_0}
-
-\item{beta0}{Initial rate parameter at time t_0}
-
-\item{c0}{coefficient of G_t in the dglm model (Based on the simulation test, this value is 1)}
+\item{s0}{Initial sample variance}
 }
 \value{
 A list containing all the parameters
