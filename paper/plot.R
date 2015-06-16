@@ -182,8 +182,4 @@ for(hh in 1:3){
 #legend(0,4.5,c("Feeding action - symbol in HMDP: $ a^f $"," Individual marketing action (kg) - symbol in HMDP: $ a^\\delta $", "Continuing action - symbol in HMDP: $ \\mathtt{\\small cont.} $", "Terminating action - symbol in HMDP: $ \\mathtt{\\small term.} $"), pch = c(NA,19,17,15),lty=c(1,NA,NA,NA), lwd=c(6,NA,NA,NA), cex=1.5,box.lty=0, y.intersp=2.5 )
 dev.off()
 
-tools::texi2pdf(file = "sim_plot.tex", clean = T)
-tools::texi2pdf(file = "opt_plot.tex", clean = T)
-
-
-do.call(file.remove,list(list.files(pattern = ".tex")))
+#do.call(file.remove,list(list.files(pattern = ".tex")))

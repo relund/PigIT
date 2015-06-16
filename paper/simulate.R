@@ -7,18 +7,6 @@
 # equal signs (=), or pound signs (#) 
 # Shortcuts Alt-L = collapse, Shift+Alt+L = Expand, Alt+0 = Collapse All, Shift+Alt+J = Jump To
 
-#### Use the already simulated data? ####
-use<-F  # change to false if want to use a new simulation
-if (use) {
-  pen1Weekly <- read.csv2("simulation_paper/pen1Weekly.csv")
-  pen1Daily <- read.csv2("simulation_paper/pen1Daily.csv")
-  pen2Weekly <- read.csv2("simulation_paper/pen2Weekly.csv")
-  pen2Daily <- read.csv2("simulation_paper/pen2Daily.csv")
-  pen3Weekly <- read.csv2("simulation_paper/pen3Weekly.csv")
-  pen3Daily <- read.csv2("simulation_paper/pen3Daily.csv")
-  stop("Use the data generated in the simulation_paper folder.")
-}
-
 #### Set parameters and growth ####
 k4Values<-estimateK4() # Find k4 values given average daily gain over the whole period
 feedMixDailyGains<-round(c(5.8/7, 6.3/7, 6.8/7),1) #round(c(4.4/7, 5.2/7, 6/7, 6.8/7),1)  # ave daily gain of each feed-mix
